@@ -24,7 +24,8 @@ test("extractCashtags", function() {
     ["$ES_F, -$FOO+$BAR", "ES_F,FOO,BAR"],
     ["$LONGLONG", "LONGLONG"],
     ["($FOO)($BAR)", "FOO,BAR"],
-    ["+$FOO-$BAR", "FOO,BAR"]
+    ["+$FOO-$BAR", "FOO,BAR"],
+    ["$FOO/$BAR, $BAZ", "FOO,BAR,BAZ"]
   ];
 
   for(var i=0; i<tests.length; i++) {
@@ -48,32 +49,32 @@ test("autoLinkCashtags (no options)", function() {
 
 test("autoLinkCashtags (options)", function() {
   var tests = [
-    [["test $FOO", { urlClass: null }], 
-      "test <a href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>", 
+    [["test $FOO", { urlClass: null }],
+      "test <a href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
       "test $FOO { urlClass: null }"],
     [["test $FOO", { urlClass: "" }],
-      "test <a href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>", 
+      "test <a href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
       "test $FOO { urlClass: \"\" }"],
-    [["test $FOO", { urlClass: undefined }], 
-      "test <a class=\"stwt-url cashtag\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>", 
+    [["test $FOO", { urlClass: undefined }],
+      "test <a class=\"stwt-url cashtag\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
       "test $FOO { urlClass: undefined }"],
-    [["test $FOO", { urlClass: false }], 
-      "test <a href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>", 
+    [["test $FOO", { urlClass: false }],
+      "test <a href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
       "test $FOO { urlClass: false }"],
-    [["test $FOO", { urlClass: "testa testb" }], 
-      "test <a class=\"testa testb\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>", 
+    [["test $FOO", { urlClass: "testa testb" }],
+      "test <a class=\"testa testb\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
       "test $FOO { urlClass: \"testa testb\" }"],
-    [["test $FOO", { urlTarget: "_new" }], 
-      "test <a class=\"stwt-url cashtag\" target=\"_new\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>", 
+    [["test $FOO", { urlTarget: "_new" }],
+      "test <a class=\"stwt-url cashtag\" target=\"_new\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
       "test $FOO { urlTarget: \"_new\" }"],
-    [["test $FOO", { urlNofollow: true }], 
-      "test <a class=\"stwt-url cashtag\" rel=\"nofollow\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>", 
+    [["test $FOO", { urlNofollow: true }],
+      "test <a class=\"stwt-url cashtag\" rel=\"nofollow\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
       "test $FOO { urlNofollow: true }"],
-    [["test $FOO", { urlClass: "foo", urlNofollow: true, urlTarget: "_new" }], 
-      "test <a class=\"foo\" target=\"_new\" rel=\"nofollow\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>", 
+    [["test $FOO", { urlClass: "foo", urlNofollow: true, urlTarget: "_new" }],
+      "test <a class=\"foo\" target=\"_new\" rel=\"nofollow\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
       "test $FOO { urlClass: \"foo\", urlNofollow: true, urlTarget: \"_new\" }"],
-    [["test $FOO", { url: "http://example.com?q=%s&foo=1" }], 
-      "test <a class=\"stwt-url cashtag\" href=\"http://example.com?q=FOO&foo=1\">$FOO</a>", 
+    [["test $FOO", { url: "http://example.com?q=%s&foo=1" }],
+      "test <a class=\"stwt-url cashtag\" href=\"http://example.com?q=FOO&foo=1\">$FOO</a>",
       "test $FOO { url: \"http://example.com?q=%s&foo=1\" }"]
   ];
 
@@ -84,9 +85,9 @@ test("autoLinkCashtags (options)", function() {
 
 test("autoLinkCashtags (callback)", function() {
   var tests = [
-    [["test $FOO", function(cashtag, symbol) { return "http://example.com/symbol/" + symbol + " " + cashtag; }], 
+    [["test $FOO", function(cashtag, symbol) { return "http://example.com/symbol/" + symbol + " " + cashtag; }],
       "test http://example.com/symbol/FOO $FOO"],
-    [["test $FOO,$BAR", function(cashtag, symbol) { return "<a href='http://example.com/symbol/" + symbol + "'>" + cashtag + "</a>"; }], 
+    [["test $FOO,$BAR", function(cashtag, symbol) { return "<a href='http://example.com/symbol/" + symbol + "'>" + cashtag + "</a>"; }],
       "test <a href='http://example.com/symbol/FOO'>$FOO</a>,<a href='http://example.com/symbol/BAR'>$BAR</a>"],
   ];
 

@@ -3,7 +3,7 @@ stwt = window.stwt || {};
 (function() {
   stwt.txt = {};
   stwt.txt.regexen = {};
-  stwt.txt.regexen.cashtag = /(^|[\s\,\.\-\+\(]\$?|^\$)(\$([a-z1-9]{1}[a-z]{1,3}_F|(?!\d+[bmkts]{1}?(il(lion)?)?\b|[\d]+\b)[a-z0-9]{1,9}(?:[-\.]{1}[a-z]{1,2})?(?:[-\.]{1}[a-z]{1,2})?))\b(?!\$)/ig;
+  stwt.txt.regexen.cashtag = /(^|[\s\,\.\-\+\(\/]\$?|^\$)(\$([a-z1-9]{1}[a-z]{1,3}_F|(?!\d+[bmkts]{1}?(il(lion)?)?\b|[\d]+\b)[a-z0-9]{1,9}(?:[-\.]{1}[a-z]{1,2})?(?:[-\.]{1}[a-z]{1,2})?))\b(?!\$)/ig;
 
   stwt.txt.extractCashtags = function(text) {
     var matches = [];

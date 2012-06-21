@@ -25,7 +25,10 @@ test("extractCashtags", function() {
     ["$LONGLONG", "LONGLONG"],
     ["($FOO)($BAR)", "FOO,BAR"],
     ["+$FOO-$BAR", "FOO,BAR"],
-    ["$FOO/$BAR, $BAZ", "FOO,BAR,BAZ"]
+    ["$FOO/$BAR, $BAZ", "FOO,BAR,BAZ"],
+    ["$83BLN $5MM $3BLN $10BN", ""],
+    ["$50USD $3.10USD", ""],
+    ['"$AAPL" or "$GOOG"', "AAPL,GOOG"]
   ];
 
   for(var i=0; i<tests.length; i++) {

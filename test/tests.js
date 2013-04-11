@@ -78,7 +78,16 @@ test("autoLinkCashtags (options)", function() {
       "test $FOO { urlClass: \"foo\", urlNofollow: true, urlTarget: \"_new\" }"],
     [["test $FOO", { url: "http://example.com?q=%s&foo=1" }],
       "test <a class=\"stwt-url cashtag\" href=\"http://example.com?q=FOO&foo=1\">$FOO</a>",
-      "test $FOO { url: \"http://example.com?q=%s&foo=1\" }"]
+      "test $FOO { url: \"http://example.com?q=%s&foo=1\" }"],
+    [["test $FOO", { "data-special": "foobar" }],
+      "test <a data-special=\"foobar\" class=\"stwt-url cashtag\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
+      "test $FOO { data-special: \"foobar\" }"],
+    [["test $FOO", { "data-special": "foobar", urlClass: "foo" }],
+      "test <a data-special=\"foobar\" class=\"foo\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
+      "test $FOO { data-special: \"foobar\", urlClass: \"foo\" }"],
+    [["test $FOO", { "class": "foobar", urlClass: "foo" }],
+      "test <a class=\"foobar foo\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
+      "test $FOO { class: \"foobar\", urlClass: \"foo\" }"]
   ];
 
   for(var i=0; i<tests.length; i++) {

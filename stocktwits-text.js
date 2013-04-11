@@ -24,17 +24,41 @@ stwt = window.stwt || {};
 
     var html = [];
     var opts = options || {};
+    var htmlAttributes = {}
+    for (var k in options) {
+      if (k !== "urlClass" && k !== "urlTarget" && k !== "urlNofollow" && k !== "url") {
+        htmlAttributes[k] = options[k];
+      }
+    }
 
-    opts.urlClass     = (opts.urlClass === undefined) ? "stwt-url cashtag" : opts.urlClass;
-    opts.urlTarget    = opts.urlTarget || null;
-    opts.urlNofollow  = opts.urlNofollow ? true : false;
-    opts.url          = opts.url || "http://stocktwits.com/symbol/%s";
+    var classes = [];
+    if (htmlAttributes.class) {
+      classes.push(htmlAttributes.class);
+    }
+    if (opts.urlClass === undefined) {
+      classes.push("stwt-url cashtag");
+    } else if (opts.urlClass) {
+      classes.push(opts.urlClass);
+    }
+    htmlAttributes.class = classes.join(" ");
 
-    if (opts.urlClass)    { html.push("class=\"" + opts.urlClass + "\""); }
-    if (opts.urlTarget)   { html.push("target=\"" + opts.urlTarget + "\""); }
-    if (opts.urlNofollow) { html.push("rel=\"nofollow\""); }
+    if (opts.urlTarget) {
+      htmlAttributes.target = opts.urlTarget;
+    }
+    if (opts.urlNofollow) {
+      htmlAttributes.rel = "nofollow";
+    }
 
     html = (html.length > 0) ? (" " + html.join(" ") + " ") : " ";
+    var html = " ";
+    var v;
+    for (k in htmlAttributes) {
+      if (v = htmlAttributes[k]) {
+        html += k + "=\"" + v + "\" ";
+      }
+    }
+
+    opts.url = opts.url || "http://stocktwits.com/symbol/%s";
 
     return text.replace(stwt.txt.regexen.cashtag, function(match, before, cashtag) {
       cashtag = cashtag.toUpperCase();

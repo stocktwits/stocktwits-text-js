@@ -87,7 +87,10 @@ test("autoLinkCashtags (options)", function() {
       "test $FOO { data-special: \"foobar\", urlClass: \"foo\" }"],
     [["test $FOO", { "class": "foobar", urlClass: "foo" }],
       "test <a class=\"foobar foo\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
-      "test $FOO { class: \"foobar\", urlClass: \"foo\" }"]
+      "test $FOO { class: \"foobar\", urlClass: \"foo\" }"],
+    [["test $FOO", { "data-special": "%s" }],
+      "test <a data-special=\"FOO\" class=\"stwt-url cashtag\" href=\"http://stocktwits.com/symbol/FOO\">$FOO</a>",
+      "test $FOO { data-special: \"%s\" }"],
   ];
 
   for(var i=0; i<tests.length; i++) {

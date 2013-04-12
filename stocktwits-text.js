@@ -49,20 +49,19 @@ stwt = window.stwt || {};
       htmlAttributes.rel = "nofollow";
     }
 
-    html = (html.length > 0) ? (" " + html.join(" ") + " ") : " ";
-    var html = " ";
-    var v;
-    for (k in htmlAttributes) {
-      if (v = htmlAttributes[k]) {
-        html += k + "=\"" + v + "\" ";
-      }
-    }
-
     opts.url = opts.url || "http://stocktwits.com/symbol/%s";
+    htmlAttributes.href = opts.url
 
     return text.replace(stwt.txt.regexen.cashtag, function(match, before, cashtag) {
       cashtag = cashtag.toUpperCase();
-      return before + "<a" + html + "href=\"" + opts.url.replace('%s', cashtag.slice(1)) + "\">" + cashtag + "</a>";
+      var html = "";
+      var v;
+      for (k in htmlAttributes) {
+        if (v = htmlAttributes[k]) {
+          html += " " + k + "=\"" + v.replace('%s', cashtag.slice(1)) + "\"";
+        }
+      }
+      return before + "<a" + html + ">" + cashtag + "</a>";
     });
   }
 })();

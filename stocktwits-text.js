@@ -32,15 +32,15 @@ stwt = window.stwt || {};
     }
 
     var classes = [];
-    if (htmlAttributes.class) {
-      classes.push(htmlAttributes.class);
+    if (htmlAttributes['class']) {
+      classes.push(htmlAttributes['class']);
     }
     if (opts.urlClass === undefined) {
       classes.push("stwt-url cashtag");
     } else if (opts.urlClass) {
       classes.push(opts.urlClass);
     }
-    htmlAttributes.class = classes.join(" ");
+    htmlAttributes['class'] = classes.join(" ");
 
     if (opts.urlTarget) {
       htmlAttributes.target = opts.urlTarget;
